@@ -45,7 +45,6 @@ changeBuildType(RelativeId("Dublicates")) {
             distinguishLiterals = true
             extractSubexpressions = true
             includeTestSources = true
-            param("idea.app.home", "%teamcity.tool.intellij.ideaIU-teamcity-2018.3.6%")
             param("duplicates.runner.field", "true")
         }
     }
