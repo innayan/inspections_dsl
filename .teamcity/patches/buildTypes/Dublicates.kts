@@ -3,6 +3,7 @@ package patches.buildTypes
 import jetbrains.buildServer.configs.kotlin.v2018_2.*
 import jetbrains.buildServer.configs.kotlin.v2018_2.IdeaDuplicates
 import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.maven
+import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.powerShell
 import jetbrains.buildServer.configs.kotlin.v2018_2.ideaDuplicates
 import jetbrains.buildServer.configs.kotlin.v2018_2.ui.*
 
@@ -12,6 +13,12 @@ To apply the patch, change the buildType with id = 'Dublicates'
 accordingly, and delete the patch script.
 */
 changeBuildType(RelativeId("Dublicates")) {
+    params {
+        add {
+            password("secure1", "credentialsJSON:a76bfc38-811c-4633-8d84-478f11fd4c40")
+        }
+    }
+
     expectSteps {
         maven {
             goals = "clean test"
@@ -46,6 +53,13 @@ changeBuildType(RelativeId("Dublicates")) {
             extractSubexpressions = true
             includeTestSources = true
             param("duplicates.runner.field", "true")
+        }
+        insert(2) {
+            powerShell {
+                scriptMode = script {
+                    content = "sleep 200"
+                }
+            }
         }
     }
 }
