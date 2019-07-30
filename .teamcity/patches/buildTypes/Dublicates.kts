@@ -40,7 +40,14 @@ changeBuildType(RelativeId("Dublicates")) {
         }
     }
     steps {
-        update<IdeaDuplicates>(1) {
+        insert(0) {
+            powerShell {
+                scriptMode = script {
+                    content = "sleep 200"
+                }
+            }
+        }
+        update<IdeaDuplicates>(2) {
             pathToProject = "java_eclipse/pom.xml"
             jvmArgs = "-Xmx1G -XX:ReservedCodeCacheSize=240m"
             targetJdkHome = "%env.JDK_18%"
@@ -53,13 +60,6 @@ changeBuildType(RelativeId("Dublicates")) {
             extractSubexpressions = true
             includeTestSources = true
             param("duplicates.runner.field", "true")
-        }
-        insert(2) {
-            powerShell {
-                scriptMode = script {
-                    content = "sleep 200"
-                }
-            }
         }
     }
 }
