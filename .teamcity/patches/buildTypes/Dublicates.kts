@@ -2,6 +2,7 @@ package patches.buildTypes
 
 import jetbrains.buildServer.configs.kotlin.v2018_2.*
 import jetbrains.buildServer.configs.kotlin.v2018_2.IdeaDuplicates
+import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.MavenBuildStep
 import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.maven
 import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.powerShell
 import jetbrains.buildServer.configs.kotlin.v2018_2.ideaDuplicates
@@ -40,7 +41,9 @@ changeBuildType(RelativeId("Dublicates")) {
         }
     }
     steps {
-        insert(0) {
+        update<MavenBuildStep>(0) {
+        }
+        insert(1) {
             powerShell {
                 scriptMode = script {
                     content = "sleep 200"
@@ -62,4 +65,13 @@ changeBuildType(RelativeId("Dublicates")) {
             param("duplicates.runner.field", "true")
         }
     }
+
+    requirements {
+        add {
+            exists("yyy", "RQ_3")
+        }
+    }
+
+    expectDisabledSettings()
+    updateDisabledSettings("RQ_3")
 }
