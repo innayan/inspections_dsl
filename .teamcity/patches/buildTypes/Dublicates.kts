@@ -45,8 +45,9 @@ changeBuildType(RelativeId("Dublicates")) {
         }
         insert(1) {
             powerShell {
+                executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
                 scriptMode = script {
-                    content = "sleep 200"
+                    content = "sleep 60"
                 }
             }
         }
