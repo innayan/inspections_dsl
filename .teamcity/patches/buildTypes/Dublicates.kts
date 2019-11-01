@@ -2,7 +2,6 @@ package patches.buildTypes
 
 import jetbrains.buildServer.configs.kotlin.v2018_2.*
 import jetbrains.buildServer.configs.kotlin.v2018_2.IdeaDuplicates
-import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.MavenBuildStep
 import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.maven
 import jetbrains.buildServer.configs.kotlin.v2018_2.buildSteps.powerShell
 import jetbrains.buildServer.configs.kotlin.v2018_2.ideaDuplicates
@@ -41,13 +40,11 @@ changeBuildType(RelativeId("Dublicates")) {
         }
     }
     steps {
-        update<MavenBuildStep>(0) {
-        }
         insert(1) {
             powerShell {
                 executionMode = BuildStep.ExecutionMode.RUN_ON_FAILURE
                 scriptMode = script {
-                    content = "sleep 60"
+                    content = "sleep 200"
                 }
             }
         }
